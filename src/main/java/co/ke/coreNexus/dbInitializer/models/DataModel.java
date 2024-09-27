@@ -1,4 +1,4 @@
-package co.ke.coreNexus;
+package co.ke.coreNexus.dbInitializer.models;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import java.util.List;
  **/
 
 public class DataModel {
-    private String tableName;
-    private List<TableDefinition> fields;
+    private final String tableName;
+    private final List<TableDefinition> fields;
 
     public DataModel(String tableName, List<TableDefinition> fields) {
         this.tableName = tableName;

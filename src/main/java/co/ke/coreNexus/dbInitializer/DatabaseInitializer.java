@@ -1,4 +1,7 @@
-package co.ke.coreNexus;
+package co.ke.coreNexus.dbInitializer;
+
+import co.ke.coreNexus.dbInitializer.models.DataModel;
+import co.ke.coreNexus.dbInitializer.models.TableDefinition;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,9 +18,9 @@ import java.util.List;
 
 public class DatabaseInitializer {
 
-    private String jdbcUrl;
-    private String username;
-    private String password;
+    private final String jdbcUrl;
+    private final String username;
+    private final String password;
 
     public DatabaseInitializer(String jdbcUrl, String username, String password) {
         this.jdbcUrl = jdbcUrl;

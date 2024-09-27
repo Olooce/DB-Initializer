@@ -1,4 +1,4 @@
-package co.ke.coreNexus;
+package co.ke.coreNexus.dbInitializer.models;
 
 /**
  * DB-Initializer (co.ke.coreNexus)

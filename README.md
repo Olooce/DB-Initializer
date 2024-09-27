@@ -33,9 +33,9 @@ A Java package that dynamically creates database schemas and tables based on def
 Here's a working example:
 
 ```java
-import ac.ku.oloo.dbInitializer.DatabaseInitializer;
-import ac.ku.oloo.dbInitializer.DataModel;
-import ac.ku.oloo.dbInitializer.TableDefinition;
+import co.ke.coreNexus.dbInitializer.DatabaseInitializer;
+import co.ke.coreNexus.dbInitializer.models.DataModel;
+import co.ke.coreNexus.dbInitializer.models.TableDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
