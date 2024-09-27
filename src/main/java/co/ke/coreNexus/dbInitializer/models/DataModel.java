@@ -7,15 +7,22 @@ import java.util.List;
  * Created by: oloo
  * On: 27/09/2024. 11:00
  * Description:
+ * Now includes schema.
  **/
 
 public class DataModel {
+    private final String schema;
     private final String tableName;
     private final List<TableDefinition> fields;
 
-    public DataModel(String tableName, List<TableDefinition> fields) {
+    public DataModel(String schema, String tableName, List<TableDefinition> fields) {
+        this.schema = schema;
         this.tableName = tableName;
         this.fields = fields;
+    }
+
+    public String getSchema() {
+        return schema;
     }
 
     public String getTableName() {

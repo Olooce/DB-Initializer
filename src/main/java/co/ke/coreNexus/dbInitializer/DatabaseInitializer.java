@@ -14,6 +14,7 @@ import java.util.List;
  * Created by: oloo
  * On: 27/09/2024. 10:49
  * Description:
+ * Adds schema creation and specification.
  **/
 
 public class DatabaseInitializer {
@@ -33,6 +34,14 @@ public class DatabaseInitializer {
              Statement statement = connection.createStatement()) {
 
             for (DataModel model : models) {
+                // Create schema if it doesn't exist
+                String schema = model.getSchema();
+                if (schema != null && !schema.isEmpty()) {
+                    String createSchemaSQL = generateCreateSchemaSQL(schema);
+                    statement.execute(createSchemaSQL);
+                }
+
+                // Create table within the schema
                 String createTableSQL = generateCreateTableSQL(model);
                 statement.execute(createTableSQL);
             }
@@ -41,8 +50,19 @@ public class DatabaseInitializer {
         }
     }
 
+    private String generateCreateSchemaSQL(String schema) {
+        return "CREATE SCHEMA IF NOT EXISTS " + schema + ";";
+    }
+
     private String generateCreateTableSQL(DataModel model) {
-        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + model.getTableName() + " (");
+        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
+
+        // Include schema in the table creation if present
+        if (model.getSchema() != null && !model.getSchema().isEmpty()) {
+            sql.append(model.getSchema()).append(".");
+        }
+
+        sql.append(model.getTableName()).append(" (");
         List<TableDefinition> fields = model.getFields();
 
         for (TableDefinition field : fields) {
