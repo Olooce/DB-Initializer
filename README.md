@@ -33,7 +33,7 @@ A Java package that dynamically creates database schemas and tables based on def
 Here's a working example:
 
 ```java
-import co.ke.coreNexus.dbInitializer.DatabaseInitializer;
+
 import co.ke.coreNexus.dbInitializer.models.DataModel;
 import co.ke.coreNexus.dbInitializer.models.TableDefinition;
 

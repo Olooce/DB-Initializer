@@ -14,7 +14,7 @@ import java.util.List;
  * Created by: oloo
  * On: 27/09/2024. 10:49
  * Description:
- * Adds schema creation and specification.
+ *
  **/
 
 public class DatabaseInitializer {
