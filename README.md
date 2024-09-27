@@ -3,7 +3,14 @@
 
 # Database Initializer
 
-A Java package that dynamically creates database schemas and tables based on defined data models, ensuring the inclusion of constraints, indexes, and relationships.
+A Java package that dynamically creates database schemas and tables based on defined data models, ensuring the inclusion
+of constraints, indexes, and relationships.
+
+I came up with this project when I realized people were cloning into some of my projects that required a database but 
+did not have a way of recreating the exact schema I was using. Hopefully this can be a standard enough for exporting my 
+schemas...or even having applications automatically initialize the required schema automatically if it doesn't exist.
+
+The goal is to enable recreating databases without necessarily recreating the data in it.
 
 ## Features
 
