@@ -8,13 +8,13 @@ package co.ke.coreNexus.dbInitializer.models;
  **/
 
 public class TableDefinition {
-    private String columnName;
-    private String dataType;
-    private boolean isPrimaryKey;
-    private boolean isForeignKey;
-    private String referencedTable;
-    private String referencedColumn;
-    private boolean isNullable;
+    private final String columnName;
+    private final String dataType;
+    private final boolean isPrimaryKey;
+    private final boolean isForeignKey;
+    private final String referencedTable;
+    private final String referencedColumn;
+    private final boolean isNullable;
 
     public TableDefinition(String columnName, String dataType, boolean isPrimaryKey,
                            boolean isForeignKey, String referencedTable, String referencedColumn, boolean isNullable) {
