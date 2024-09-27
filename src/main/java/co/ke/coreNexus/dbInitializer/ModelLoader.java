@@ -1,6 +1,7 @@
 package co.ke.coreNexus.dbInitializer;
 
 import co.ke.coreNexus.dbInitializer.models.DataModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
