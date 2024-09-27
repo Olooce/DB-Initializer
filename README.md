@@ -6,11 +6,13 @@
 A Java package that dynamically creates database schemas and tables based on defined data models, ensuring the inclusion
 of constraints, indexes, and relationships.
 
-I came up with this project when I realized people were cloning into some of my projects that required a database but 
-did not have a way of recreating the exact schema I was using. Hopefully this can be a standard enough for exporting my 
-schemas...or even having applications automatically initialize the required schema automatically if it doesn't exist.
+## Motivation
 
-The goal is to enable recreating databases without necessarily recreating the data in it.
+I came up with this project when I realized people were cloning into some of my projects that required a database but 
+did not have a way of recreating the exact schema I was using. Hopefully, this can become a standard way to export my 
+schemas or even allow applications to automatically initialize the required schema if it doesn't exist.
+
+The goal is to enable recreating databases without necessarily recreating the data in them.
 
 ## Features
 
@@ -81,7 +83,8 @@ public class Main {
 
 ### 2. Scan an Existing Database
 
-The `DatabaseScanner` class allows you to scan an existing database and generate `DataModel` objects. These models can be exported for reuse.
+The `DatabaseScanner` class allows you to scan an existing database and generate `DataModel` objects. These models can 
+be exported for reuse.
 
 ```java
 import co.ke.coreNexus.dbScanner.DatabaseScanner;
