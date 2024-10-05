@@ -37,7 +37,7 @@ public class DatabaseScanner {
             ResultSet tables = metaData.getTables(null, null, "%", new String[]{"TABLE"});
 
             while (tables.next()) {
-                String schema = tables.getString("TABLE_SCHEM");
+                String schema = tables.getString("TABLE_SCHEMA");
                 String tableName = tables.getString("TABLE_NAME");
 
                 // Get columns for the table
