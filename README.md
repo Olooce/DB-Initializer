@@ -1,5 +1,5 @@
 
----
+_---
 
 # Database Initializer
 
@@ -13,6 +13,8 @@ did not have a way of recreating the exact schema I was using. Hopefully, this c
 schemas or even allow applications to automatically initialize the required schema if it doesn't exist.
 
 The goal is to enable recreating databases without necessarily recreating the data in them.
+
+To see an example complete implementation, you can visit this [GitHub repository](https://github.com/Olooce/FedhaYouthGroupSystem-SCO200_Project/blob/master/src/main/java/ac/ku/oloo/configs/DB_Config.java).
 
 ## Features
 
@@ -190,4 +192,4 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 
 This project is licensed under the MIT License.
 
---- 
+---_ 
