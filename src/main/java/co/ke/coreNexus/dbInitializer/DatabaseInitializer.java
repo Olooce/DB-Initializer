@@ -65,6 +65,12 @@ public class DatabaseInitializer {
         sql.append("`").append(model.getTableName()).append("` (");
         List<TableDefinition> fields = model.getFields();
 
+        // Check if fields are present
+        if (fields.isEmpty()) {
+            sql.append(");"); // Just close the statement if no fields
+            return sql.toString();
+        }
+
         for (TableDefinition field : fields) {
             sql.append("`").append(field.getColumnName()).append("` ")
                     .append(field.getDataType());
@@ -75,6 +81,8 @@ public class DatabaseInitializer {
             if (!field.isNullable()) {
                 sql.append(" NOT NULL");
             }
+
+            // Add a comma for all but the last field
             sql.append(", ");
         }
 
@@ -95,6 +103,7 @@ public class DatabaseInitializer {
             }
         }
 
+        System.out.println("Generated SQL: " + sql);
 
         return sql.toString();
     }
