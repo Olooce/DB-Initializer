@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,12 +66,6 @@ public class DatabaseInitializer {
         sql.append("`").append(model.getTableName()).append("` (");
         List<TableDefinition> fields = model.getFields();
 
-        // Check if fields are present
-        if (fields.isEmpty()) {
-            sql.append(");"); // Just close the statement if no fields
-            return sql.toString();
-        }
-
         for (TableDefinition field : fields) {
             sql.append("`").append(field.getColumnName()).append("` ")
                     .append(field.getDataType());
@@ -81,31 +76,33 @@ public class DatabaseInitializer {
             if (!field.isNullable()) {
                 sql.append(" NOT NULL");
             }
-
-            // Add a comma for all but the last field
             sql.append(", ");
         }
 
         // Remove the last comma and space
         sql.setLength(sql.length() - 2);
-        sql.append(");");
 
-        // Collect foreign key constraints after columns are defined
+        // Collect foreign key constraints to append them within the table definition
+        List<String> foreignKeyConstraints = new ArrayList<>();
         for (TableDefinition field : fields) {
             if (field.isForeignKey()) {
-                sql.append(", FOREIGN KEY (`")
-                        .append(field.getColumnName())
-                        .append("`) REFERENCES `")
-                        .append(field.getReferencedTable())
-                        .append("` (`")
-                        .append(field.getReferencedColumn())
-                        .append("`)");
+                foreignKeyConstraints.add(String.format("FOREIGN KEY (`%s`) REFERENCES `%s` (`%s`)",
+                        field.getColumnName(),
+                        field.getReferencedTable(),
+                        field.getReferencedColumn()));
             }
         }
 
-        System.out.println("Generated SQL: " + sql);
+        // Append foreign key constraints to the SQL
+        if (!foreignKeyConstraints.isEmpty()) {
+            sql.append(", ");
+            sql.append(String.join(", ", foreignKeyConstraints));
+        }
+
+        sql.append(");");
 
         return sql.toString();
     }
+
 
 }

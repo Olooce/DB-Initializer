@@ -13,7 +13,7 @@ import java.util.Map;
  * DB-Initializer (co.ke.coreNexus.dbScanner)
  * Created by: oloo
  * On: 27/09/2024. 21:45
- * Description:Scans a connected database and generates DataModel objects.
+ * Description: Scans a connected database and generates DataModel objects.
  * These models can be exported and later used to initialize the database.
  **/
 
@@ -66,9 +66,9 @@ public class DatabaseScanner {
         Map<String, ForeignKeyInfo> foreignKeyMap = new HashMap<>();
         while (foreignKeyRS.next()) {
             String fkColumnName = foreignKeyRS.getString("FKCOLUMN_NAME");
-            String referencedTable = foreignKeyRS.getString("PKTABLE_NAME");
+            // This will be qualified with schema later
             String referencedColumn = foreignKeyRS.getString("PKCOLUMN_NAME");
-            foreignKeyMap.put(fkColumnName, new ForeignKeyInfo(referencedTable, referencedColumn));
+            foreignKeyMap.put(fkColumnName, new ForeignKeyInfo(fkColumnName, referencedColumn));
         }
 
         while (columnsRS.next()) {
@@ -88,10 +88,10 @@ public class DatabaseScanner {
             ForeignKeyInfo foreignKeyInfo = foreignKeyMap.get(columnName);
             boolean isForeignKey = foreignKeyInfo != null;
 
-            String referencedTable = isForeignKey ? foreignKeyInfo.referencedTable() : null;
+            String referencedTable = isForeignKey ? String.format("`%s`.`%s`", schema, foreignKeyInfo.referencedTable()) : null;
             String referencedColumn = isForeignKey ? foreignKeyInfo.referencedColumn() : null;
 
-            // Create the TableDefinition with the updated dataType
+            // Create the TableDefinition with the updated dataType and qualified references
             columns.add(new TableDefinition(columnName, dataType, isPrimaryKey, isForeignKey, referencedTable, referencedColumn, isNullable));
         }
 
