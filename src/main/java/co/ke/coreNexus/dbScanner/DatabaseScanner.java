@@ -88,12 +88,19 @@ public class DatabaseScanner {
             ForeignKeyInfo foreignKeyInfo = foreignKeyMap.get(columnName);
             boolean isForeignKey = foreignKeyInfo != null;
 
-            String referencedTable = isForeignKey ? String.format("`%s`.`%s`", schema, foreignKeyInfo.referencedTable()) : null;
-            String referencedColumn = isForeignKey ? foreignKeyInfo.referencedColumn() : null;
+            String referencedTable = null;
+            String referencedColumn = null;
+
+            if (isForeignKey) {
+                // Ensure that the schema is not null and properly format the referenced table
+                referencedTable = String.format("`%s`.`%s`", schema != null ? schema : "", foreignKeyInfo.referencedTable());
+                referencedColumn = foreignKeyInfo.referencedColumn();
+            }
 
             // Create the TableDefinition with the updated dataType and qualified references
             columns.add(new TableDefinition(columnName, dataType, isPrimaryKey, isForeignKey, referencedTable, referencedColumn, isNullable));
         }
+
 
         return columns;
     }
