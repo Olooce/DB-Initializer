@@ -23,11 +23,11 @@ public class TableDefinition {
     public TableDefinition(
             @JsonProperty("columnName") String columnName,
             @JsonProperty("dataType") String dataType,
-            @JsonProperty("isPrimaryKey") boolean isPrimaryKey,
-            @JsonProperty("isForeignKey") boolean isForeignKey,
+            @JsonProperty("primaryKey") boolean isPrimaryKey,
+            @JsonProperty("foreignKey") boolean isForeignKey,
             @JsonProperty("referencedTable") String referencedTable,
             @JsonProperty("referencedColumn") String referencedColumn,
-            @JsonProperty("isNullable") boolean isNullable) {
+            @JsonProperty("nullable") boolean isNullable) {
         this.columnName = columnName;
         this.dataType = dataType;
         this.isPrimaryKey = isPrimaryKey;

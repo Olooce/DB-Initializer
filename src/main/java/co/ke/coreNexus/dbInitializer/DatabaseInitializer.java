@@ -59,22 +59,18 @@ public class DatabaseInitializer {
 
         // Include schema in the table creation if present
         if (model.getSchema() != null && !model.getSchema().isEmpty()) {
-            sql.append(model.getSchema()).append(".");
+            sql.append("`").append(model.getSchema()).append("`.");
         }
 
-        sql.append(model.getTableName()).append(" (");
+        sql.append("`").append(model.getTableName()).append("` (");
         List<TableDefinition> fields = model.getFields();
 
         for (TableDefinition field : fields) {
-            sql.append(field.getColumnName())
-                    .append(" ")
+            sql.append("`").append(field.getColumnName()).append("` ")
                     .append(field.getDataType());
 
             if (field.isPrimaryKey()) {
                 sql.append(" PRIMARY KEY");
-            }
-            if (field.isForeignKey()) {
-                sql.append(" REFERENCES ").append(field.getReferencedTable()).append("(").append(field.getReferencedColumn()).append(")");
             }
             if (!field.isNullable()) {
                 sql.append(" NOT NULL");
@@ -85,6 +81,22 @@ public class DatabaseInitializer {
         // Remove the last comma and space
         sql.setLength(sql.length() - 2);
         sql.append(");");
+
+        // Collect foreign key constraints after columns are defined
+        for (TableDefinition field : fields) {
+            if (field.isForeignKey()) {
+                sql.append(", FOREIGN KEY (`")
+                        .append(field.getColumnName())
+                        .append("`) REFERENCES `")
+                        .append(field.getReferencedTable())
+                        .append("` (`")
+                        .append(field.getReferencedColumn())
+                        .append("`)");
+            }
+        }
+
+
         return sql.toString();
     }
+
 }
