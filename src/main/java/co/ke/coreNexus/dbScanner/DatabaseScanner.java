@@ -77,12 +77,21 @@ public class DatabaseScanner {
             boolean isNullable = "YES".equals(columnsRS.getString("IS_NULLABLE"));
             boolean isPrimaryKey = primaryKeyMap.getOrDefault(columnName, false);
 
+            // Get the column size (length)
+            int columnSize = columnsRS.getInt("COLUMN_SIZE");
+
+            // Append length to the data type for variable-length types
+            if ("VARCHAR".equalsIgnoreCase(dataType) || "CHAR".equalsIgnoreCase(dataType) || "NCHAR".equalsIgnoreCase(dataType)) {
+                dataType = String.format("%s(%d)", dataType, columnSize); // e.g., VARCHAR(255)
+            }
+
             ForeignKeyInfo foreignKeyInfo = foreignKeyMap.get(columnName);
             boolean isForeignKey = foreignKeyInfo != null;
 
             String referencedTable = isForeignKey ? foreignKeyInfo.referencedTable() : null;
             String referencedColumn = isForeignKey ? foreignKeyInfo.referencedColumn() : null;
 
+            // Create the TableDefinition with the updated dataType
             columns.add(new TableDefinition(columnName, dataType, isPrimaryKey, isForeignKey, referencedTable, referencedColumn, isNullable));
         }
 
