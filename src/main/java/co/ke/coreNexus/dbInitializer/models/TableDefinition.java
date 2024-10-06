@@ -1,5 +1,8 @@
 package co.ke.coreNexus.dbInitializer.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DB-Initializer (co.ke.coreNexus)
  * Created by: oloo
@@ -16,8 +19,15 @@ public class TableDefinition {
     private final String referencedColumn;
     private final boolean isNullable;
 
-    public TableDefinition(String columnName, String dataType, boolean isPrimaryKey,
-                           boolean isForeignKey, String referencedTable, String referencedColumn, boolean isNullable) {
+    @JsonCreator
+    public TableDefinition(
+            @JsonProperty("columnName") String columnName,
+            @JsonProperty("dataType") String dataType,
+            @JsonProperty("isPrimaryKey") boolean isPrimaryKey,
+            @JsonProperty("isForeignKey") boolean isForeignKey,
+            @JsonProperty("referencedTable") String referencedTable,
+            @JsonProperty("referencedColumn") String referencedColumn,
+            @JsonProperty("isNullable") boolean isNullable) {
         this.columnName = columnName;
         this.dataType = dataType;
         this.isPrimaryKey = isPrimaryKey;
