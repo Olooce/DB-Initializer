@@ -35,4 +35,7 @@ build/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Storenode_modules/
+coverage/
+.env
+Thumbs.db
